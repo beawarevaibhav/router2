@@ -1,12 +1,22 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { ShoppingCart } from 'lucide-react';
 
-function Header() {
+function Header({cartCount}) {
   return (
     <>
       <header className="bg-blue-500 text-white p-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold">My App</h1>
         <nav>
+             <div className="relative inline-block">
+          <ShoppingCart size={28} />
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-1.5">
+              {cartCount}
+            </span>
+          )}
+        </div>
+             
           <NavLink
             to="/"
             end
@@ -39,7 +49,9 @@ function Header() {
             }
           >
             Contact
+            
           </NavLink>
+             
         </nav>
       </header>
     </>

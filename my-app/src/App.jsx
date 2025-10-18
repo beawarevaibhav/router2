@@ -7,16 +7,17 @@ import Home from './components/home/home.jsx'
 import About from './components/about/about.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [cartCount, setCartCount] = useState(0);
 
   return (
     <>
-      <Header />
+      <Header cartCount={cartCount} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home setCartCount={setCartCount} />} />
         <Route path="/about" element={<About />} /> {/* ✅ Moved inside <Routes> */}
       </Routes>
       <Footer />
+       
     </>
   )
 }
