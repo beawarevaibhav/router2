@@ -1,28 +1,42 @@
-import React from "react";
+import { useState, useEffect } from "react";
 
-function Home({setCartCount}) {
-    const handleAddToCart = () => {
-        setCartCount(prevCount => prevCount + 1);
+function App() {
+  const [text, setText] = useState("");
+
+  // Load saved value on page load
+  useEffect(() => {
+    const saved = localStorage.getItem("myInput");
+    if (saved) {
+      setText(saved);
     }
+  }, []);
+
+  // Save value when Submit button clicked
+  const handleSubmit = () => {
+    localStorage.setItem("myInput", text);
+    alert("✅ Saved in Local Storage!");
+  };
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-5 w-72">
-        <img
-          src="https://via.placeholder.com/300x200"
-          alt="Product"
-          className="rounded-md mb-4 w-full h-40 object-cover"
-        />
-        <h2 className="text-lg font-semibold">Simple Product</h2>
-        <p className="text-gray-600 text-sm mb-3">This is a simple product card example.</p>
-        <div className="flex justify-between items-center">
-          <span className="text-blue-500 font-bold">$49.99</span>
-          <button onClick={handleAddToCart} className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600">
-            Add to Cart
-          </button>
-        </div>
-      </div>
+    <div style={{ padding: 20 }}>
+      <h2>Simple Input → LocalStorage</h2>
+
+      <input
+        type="text"
+        value={text}
+        placeholder="Type something..."
+        onChange={(e) => setText(e.target.value)}
+      />
+
+      <button onClick={handleSubmit} style={{ marginLeft: 10 }}>
+        Submit
+      </button>
+
+      <p style={{ marginTop: 20 }}>
+        <b>Saved Value:</b> {text}
+      </p>
     </div>
   );
 }
 
-export default Home;
+export default App;
